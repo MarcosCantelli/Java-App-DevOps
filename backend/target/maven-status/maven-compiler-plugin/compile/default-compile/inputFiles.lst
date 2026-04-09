@@ -1,0 +1,5 @@
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/EcommerceApplication.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/controller/ProdutoController.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/entity/Produto.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/repository/ProdutoRepository.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/service/ProdutoService.java
