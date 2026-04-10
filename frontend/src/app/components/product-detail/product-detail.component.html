@@ -6,9 +6,9 @@
 
   <div class="detail-card" *ngIf="product && !loading">
     <div class="detail-image">
-      <img [src]="product.imagemUrl || 'assets/placeholder.png'"
+      <img [src]="product.imagemUrl || 'https://placehold.co/600x400/1a2744/4fc3f7?text=Sem+imagem'"
            [alt]="product.nome"
-           onerror="this.src='assets/placeholder.png'">
+          (error)="onImageError($event)">
     </div>
     <div class="detail-info">
       <span class="category-badge">{{ product.categoria.nome }}</span>

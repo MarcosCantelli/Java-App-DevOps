@@ -1,6 +1,9 @@
 <nav class="navbar">
   <div class="navbar-brand">
-    <a routerLink="/">MVRC Shop</a>
+    <a routerLink="/">
+      <img src="assets/logo.png" alt="MVRC Shop" class="logo-img"
+           (error)="onLogoError($event)">
+    </a>
   </div>
   <div class="navbar-menu">
     <a routerLink="/"
@@ -8,5 +11,8 @@
        [routerLinkActiveOptions]="{exact: true}">
       Produtos
     </a>
+    <button class="theme-toggle" (click)="toggleTheme()" [title]="isDark ? 'Modo claro' : 'Modo escuro'">
+      {{ isDark ? '☀' : '☾' }}
+    </button>
   </div>
 </nav>

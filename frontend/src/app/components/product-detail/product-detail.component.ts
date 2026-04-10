@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { CommonModule } from '@angular/common'; // Necessário para o pipe 'number'
 
 @Component({
   selector: 'app-product-detail',
-  standalone: false,  // Certifique-se de que está como FALSE
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-
   product: Product | null = null;
   loading = true;
   error = false;
 
   constructor(
-    private route: ActivatedRoute,   // lê o :id da URL
-    private router: Router,          // navega entre páginas
+    private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService
   ) {}
 
@@ -31,5 +32,11 @@ export class ProductDetailComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/']);
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = 'https://placehold.co/600x400/1a2744/4fc3f7?text=Sem+imagem';
   }
 }

@@ -1,25 +1,68 @@
 .navbar {
-  background-color: #1a1a2e;
+  background-color: var(--nav-bg);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background 0.3s;
 }
+
 .navbar-brand a {
-  color: #e94560;
-  font-size: 1.5rem;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
   text-decoration: none;
 }
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  color: var(--accent);
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .navbar-menu a {
-  color: #ffffff;
+  color: var(--nav-text);
   text-decoration: none;
-  margin-left: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
+
 .navbar-menu a:hover,
 .navbar-menu a.active {
-  background-color: #e94560;
+  background-color: var(--accent);
+  color: white;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--nav-text);
+  color: var(--nav-text);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-left: 0.5rem;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
 }
