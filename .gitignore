@@ -23,3 +23,8 @@
 hs_err_pid*
 replay_pid*
 .vscode
+
+# Credenciais locais
+src/main/resources/application-local.properties
+target/
+/home/mvrc/projetos/Java-App-DevOps/backend/.env

@@ -1,5 +1,9 @@
-com/ecommerce/repository/ProdutoRepository.class
-com/ecommerce/service/ProdutoService.class
-com/ecommerce/EcommerceApplication.class
-com/ecommerce/entity/Produto.class
-com/ecommerce/controller/ProdutoController.class
+com/mvrc/ecommerce/service/ProductService.class
+com/mvrc/ecommerce/controller/ProductController.class
+com/mvrc/ecommerce/repository/ProductRepository.class
+com/mvrc/ecommerce/service/CategoryService.class
+com/mvrc/ecommerce/controller/CategoryController.class
+com/mvrc/ecommerce/model/Category.class
+com/mvrc/ecommerce/model/Product.class
+com/mvrc/ecommerce/EcommerceApplication.class
+com/mvrc/ecommerce/repository/CategoryRepository.class

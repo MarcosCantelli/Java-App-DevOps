@@ -1,5 +1,9 @@
-/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/EcommerceApplication.java
-/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/controller/ProdutoController.java
-/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/entity/Produto.java
-/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/repository/ProdutoRepository.java
-/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/ecommerce/service/ProdutoService.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/EcommerceApplication.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/controller/CategoryController.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/controller/ProductController.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/model/Category.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/model/Product.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/repository/CategoryRepository.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/repository/ProductRepository.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/service/CategoryService.java
+/home/mvrc/projetos/Java-App-DevOps/backend/src/main/java/com/mvrc/ecommerce/service/ProductService.java
