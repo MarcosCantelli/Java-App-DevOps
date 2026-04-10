@@ -1,0 +1,26 @@
+<div class="container">
+  <button class="btn-back" (click)="goBack()">← Voltar</button>
+
+  <div *ngIf="loading" class="loading">Carregando produto...</div>
+  <div *ngIf="error" class="error">Produto não encontrado.</div>
+
+  <div class="detail-card" *ngIf="product && !loading">
+    <div class="detail-image">
+      <img [src]="product.imagemUrl || 'assets/placeholder.png'"
+           [alt]="product.nome"
+           onerror="this.src='assets/placeholder.png'">
+    </div>
+    <div class="detail-info">
+      <span class="category-badge">{{ product.categoria.nome }}</span>
+      <h1>{{ product.nome }}</h1>
+      <p class="description">{{ product.descricao }}</p>
+      <div class="price">R$ {{ product.preco | number:'1.2-2':'pt-BR' }}</div>
+      <div class="stock-info" [class.low]="product.estoque < 10">
+        {{ product.estoque > 0 ? product.estoque + ' unidades em estoque' : 'Sem estoque' }}
+      </div>
+      <button class="btn-buy" [disabled]="product.estoque === 0">
+        {{ product.estoque > 0 ? 'Adicionar ao carrinho' : 'Indisponível' }}
+      </button>
+    </div>
+  </div>
+</div>
