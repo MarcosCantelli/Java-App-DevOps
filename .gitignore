@@ -25,6 +25,6 @@ replay_pid*
 .vscode
 
 # Credenciais locais
-src/main/resources/application-local.properties
+backend/src/main/resources/application-local.properties
 target/
-/home/mvrc/projetos/Java-App-DevOps/backend/.env
+backend/.env
