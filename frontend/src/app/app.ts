@@ -5,8 +5,12 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavbarComponent, RouterModule],
-  templateUrl: './app.component.html', // Alterado de ./app.html para ./app.component.html
+  imports: [NavbarComponent, RouterModule], // RouterModule é vital aqui!
+  template: `
+    <app-navbar></app-navbar>
+    <main>
+      <router-outlet></router-outlet> </main>
+  `,
   styleUrl: './app.css'
 })
 export class App {
