@@ -1,0 +1,49 @@
+<div class="container">
+
+  <div class="filters">
+    <button [class.active]="selectedCategoryId === null"
+            (click)="filterByCategory(null)">
+      Todos
+    </button>
+    <button *ngFor="let cat of categories"
+            [class.active]="selectedCategoryId === cat.id"
+            (click)="filterByCategory(cat.id)">
+      {{ cat.nome }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Carregando produtos...</div>
+
+  <div *ngIf="error" class="error">
+    Erro ao conectar com a API. Verifique se o backend está rodando.
+  </div>
+
+  <div class="products-grid" *ngIf="!loading && !error">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="product-image">
+        <img [src]="product.imagemUrl || fallbackImage"
+             [alt]="product.nome"
+             (error)="onImageError($event)">
+      </div>
+      <div class="product-info">
+        <span class="category-badge">{{ product.categoria.nome }}</span>
+        <h3>{{ product.nome }}</h3>
+        <p>{{ product.descricao }}</p>
+        <div class="product-footer">
+          <span class="price">R$ {{ product.preco | number:'1.2-2':'pt-BR' }}</span>
+          <span class="stock" [class.low]="product.estoque < 10">
+            {{ product.estoque }} em estoque
+          </span>
+        </div>
+        <a [routerLink]="['/produto', product.id]" class="btn-detail">
+          Ver detalhes
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && products.length === 0" class="empty">
+    Nenhum produto encontrado nesta categoria.
+  </div>
+
+</div>

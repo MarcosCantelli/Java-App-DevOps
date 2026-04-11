@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Paleta light mode */
+:root {
+  --bg:          #f0f4f8;
+  --card-bg:     #ffffff;
+  --text:        #1a2744;
+  --text-muted:  #5a7184;
+  --border:      #d0dce8;
+  --nav-bg:      #1a2744;
+  --nav-text:    #e0f0ff;
+  --accent:      #0077b6;
+  --accent-2:    #00b4d8;
+  --badge-bg:    #e0f7fa;
+  --badge-text:  #006d77;
+  --price:       #007f5f;
+  --price-dark:  #00b894;
+  --low-stock:   #d62828;
+  --btn-bg:      #1a2744;
+  --btn-hover:   #0077b6;
+  --error-bg:    #fff0f0;
+  --error-text:  #d62828;
+  --filter-border: #1a2744;
+  --filter-active-bg: #1a2744;
+}
+
+/* Paleta dark mode */
+body.dark-mode {
+  --bg:          #0d1b2a;
+  --card-bg:     #1b2838;
+  --text:        #cde8ff;
+  --text-muted:  #7fb3d3;
+  --border:      #2a4060;
+  --nav-bg:      #0a1628;
+  --nav-text:    #90caf9;
+  --accent:      #4fc3f7;
+  --accent-2:    #80deea;
+  --badge-bg:    #0d2d3a;
+  --badge-text:  #80deea;
+  --price:       #4db6ac;
+  --price-dark:  #4db6ac;
+  --low-stock:   #ef9a9a;
+  --btn-bg:      #1565c0;
+  --btn-hover:   #4fc3f7;
+  --error-bg:    #2d1a1a;
+  --error-text:  #ef9a9a;
+  --filter-border: #4fc3f7;
+  --filter-active-bg: #1565c0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
