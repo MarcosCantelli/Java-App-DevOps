@@ -28,3 +28,22 @@ replay_pid*
 backend/src/main/resources/application-local.properties
 target/
 backend/.env
+
+
+# Backend
+backend/target/
+backend/src/main/resources/application-local.properties
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Docker
+*.tar.gz
+
+# Variáveis locais
+.env
+
+# IDE
+.vscode/settings.json
+*.class
