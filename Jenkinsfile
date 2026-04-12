@@ -32,9 +32,12 @@ pipeline {
         stage('Build Backend') {
             steps {
                 dir('backend') {
-                    sh 'mvn package -DskipTests -q'
-                    echo "JAR gerado com sucesso"
+                    withEnv(['JAVA_HOME=/opt/java/jdk-17.0.14', 'PATH=/opt/java/jdk-17.0.14/bin:/usr/bin:/bin']) {
+                        sh 'java -version'
+                        sh 'mvn package -DskipTests -q'
+                    }
                 }
+                echo "JAR gerado com sucesso"
             }
         }
 
