@@ -3,6 +3,7 @@ pipeline {
 
     triggers {
         githubPush()
+        pollSCM('H/2 * * * *')
     }
 
     environment {
@@ -16,41 +17,20 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo "Branch: ${env.GIT_BRANCH}"
-                echo "Commit: ${env.GIT_COMMIT}"
-                sh 'java -version'
-            }
-        }
-
-        stage('Build Backend') {
-            steps {
-                dir('backend') {
-                    withEnv([
-                        'JAVA_HOME=/opt/java/jdk-17',
-                        'PATH=/opt/java/jdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-                    ]) {
-                        sh 'java -version'
-                        sh 'mvn package -DskipTests -q'
-                    }
-                }
-                echo "JAR gerado com sucesso"
-            }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                dir('frontend') {
-                    sh 'npm install'
-                    sh 'npm run build -- --configuration=production'
-                    echo "Angular compilado com sucesso"
+                checkout scm
+                script {
+                    def branchName = env.GIT_BRANCH ?: sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    def commitId = env.GIT_COMMIT ?: sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                    echo "Branch: ${branchName}"
+                    echo "Commit: ${commitId}"
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:${env.BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
-                echo "Imagem Docker criada: ${IMAGE_NAME}:${env.BUILD_NUMBER}"
+                sh "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+                echo "Imagem criada: ${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
 
@@ -63,61 +43,53 @@ pipeline {
                     string(credentialsId: 'db-user',     variable: 'DB_USER'),
                     string(credentialsId: 'db-password', variable: 'DB_PASSWORD')
                 ]) {
-                    sh """
+                    sh '''
                         docker save ${IMAGE_NAME}:latest | gzip > /tmp/${IMAGE_NAME}.tar.gz
 
-                        scp -i ${SSH_KEY} -o StrictHostKeyChecking=no \
-                            /tmp/${IMAGE_NAME}.tar.gz \
-                            ${VM_USER}@${VM_IP}:/tmp/
+                        scp -i ${SSH_KEY} -o StrictHostKeyChecking=no /tmp/${IMAGE_NAME}.tar.gz ${VM_USER}@${VM_IP}:/tmp/
 
-                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'ENDSSH'
-                            docker load < /tmp/${IMAGE_NAME}.tar.gz
-                            docker stop ecommerce 2>/dev/null || true
-                            docker rm ecommerce 2>/dev/null || true
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} "docker load < /tmp/${IMAGE_NAME}.tar.gz && \
+                            docker stop ecommerce 2>/dev/null || true && \
+                            docker rm ecommerce 2>/dev/null || true && \
                             docker run -d \
                                 --name ecommerce \
                                 --restart unless-stopped \
                                 -p 80:80 \
                                 -p 8080:8080 \
-                                -e DB_HOST=${DB_HOST} \
-                                -e DB_PORT=${DB_PORT} \
-                                -e DB_NAME=${DB_NAME} \
-                                -e DB_USER=${DB_USER} \
-                                -e DB_PASSWORD=${DB_PASSWORD} \
-                                ${IMAGE_NAME}:latest
-                            docker image prune -f
-                            rm -f /tmp/${IMAGE_NAME}.tar.gz
-ENDSSH
+                                -e DB_HOST=\"${DB_HOST}\" \
+                                -e DB_PORT=\"${DB_PORT}\" \
+                                -e DB_NAME=\"${DB_NAME}\" \
+                                -e DB_USER=\"${DB_USER}\" \
+                                -e DB_PASSWORD=\"${DB_PASSWORD}\" \
+                                ${IMAGE_NAME}:latest && \
+                            docker image prune -f && \
+                            rm -f /tmp/${IMAGE_NAME}.tar.gz"
 
                         rm -f /tmp/${IMAGE_NAME}.tar.gz
-                    """
+                    '''
                 }
             }
         }
 
         stage('Verificar Deploy') {
             steps {
-                sh """
+                sh '''
                     echo "Aguardando aplicação inicializar..."
                     sleep 20
                     curl -sf http://${VM_IP}/api/products \
                         && echo "API respondendo corretamente" \
-                        || echo "API ainda não respondeu — verifique os logs do container"
+                        || echo "API ainda não respondeu"
                     curl -sf http://${VM_IP} \
                         && echo "Frontend acessível" \
                         || echo "Frontend não acessível"
-                """
+                '''
             }
         }
     }
 
     post {
-        success {
-            echo "Deploy concluído com sucesso!"
-            echo "Aplicação disponível em: http://${VM_IP}"
-        }
-        failure {
-            echo "Deploy falhou. Verifique os logs acima."
+        always {
+            cleanWs()
         }
     }
 }
