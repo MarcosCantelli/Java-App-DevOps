@@ -14,9 +14,8 @@ pipeline {
         VM_USER    = 'mvrc'
         SSH_KEY    = '/var/lib/jenkins/.ssh/ansible_key'
         IMAGE_NAME = 'ecommerce-app'
-
-        JAVA_HOME  = '/opt/java/jdk-17.0.14'
-        PATH       = "/opt/java/jdk-17.0.14/bin:${env.PATH}"
+        JAVA_HOME  = '/opt/java/jdk-17'
+        PATH       = "/opt/java/jdk-17/bin:${env.PATH}"
     }
 
     stages {
