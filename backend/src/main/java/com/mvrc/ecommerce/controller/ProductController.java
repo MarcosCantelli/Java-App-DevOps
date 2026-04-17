@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(" docker exec -it ecommerce sh\r\n" + //
+        "/ # grep -r \"localhost:8080\" /usr/share/nginx/html\r\n" + //
+        "")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ProductController {
