@@ -1,4 +1,3 @@
-# teste
 # Java-App-DevOps (Part 2)
 
 This repository is the second part of the DevOps project available at https://github.com/MarcosCantelli/DevOps-MVRC-IAC.
