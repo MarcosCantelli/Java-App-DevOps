@@ -1,10 +1,13 @@
 #!/bin/sh
 
-# Inicia o Nginx em background
-nginx
+set -e
 
-# Inicia o Java com as variáveis de ambiente injetadas
+echo "Iniciando Nginx..."
+nginx -g "daemon off;" &
+
+echo "Iniciando aplicação Java..."
+
 exec java -jar /app/ecommerce.jar \
-  --spring.datasource.url=jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo \
-  --spring.datasource.username=${DB_USER} \
-  --spring.datasource.password=${DB_PASSWORD}
+  --spring.datasource.url="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo" \
+  --spring.datasource.username="${DB_USER}" \
+  --spring.datasource.password="${DB_PASSWORD}"
