@@ -1,3 +1,5 @@
+@Library('shared-lib') _
+
 pipeline {
     agent any
 
@@ -23,6 +25,38 @@ pipeline {
                     def commitId = env.GIT_COMMIT ?: sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
                     echo "Branch: ${branchName}"
                     echo "Commit: ${commitId}"
+                }
+            }
+        }
+
+        stage('Detect Project Type') {
+            steps {
+                script {
+                    devopsPipeline.detectProjectType()
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    devopsPipeline.buildProject()
+                }
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                script {
+                    devopsPipeline.sonarAnalysis()
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    devopsPipeline.qualityGate()
                 }
             }
         }
