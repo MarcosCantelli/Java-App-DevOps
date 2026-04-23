@@ -32,7 +32,7 @@ pipeline {
         stage('Detect Project Type') {
             steps {
                 script {
-                    devopsPipeline.detectProjectType()
+                    detectProjectType()
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    devopsPipeline.buildProject()
+                    buildProject()
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    devopsPipeline.sonarAnalysis()
+                    sonarAnalysis()
                 }
             }
         }
@@ -56,7 +56,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 script {
-                    devopsPipeline.qualityGate()
+                    qualityGate()
                 }
             }
         }
